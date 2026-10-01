@@ -1,0 +1,620 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Shubham Belwal — Backend developer</title>
+<meta name="description" content="Backend developer working in Java/Spring Boot and Python/Flask, with hands-on work in concurrency, sockets, applied cryptography and LLM-based systems.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400..900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #EEF0EE;
+  --surface: #F8F9F7;
+  --ink: #18211E;
+  --muted: #56615C;
+  --line: #C6CDC9;
+  --accent: #2F45C5;
+  --accent-ink: #FFFFFF;
+  --accent-soft: rgba(47, 69, 197, 0.10);
+  color-scheme: light;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #121715;
+    --surface: #1A201E;
+    --ink: #E4E9E6;
+    --muted: #9AA6A0;
+    --line: #34403B;
+    --accent: #8A9BFF;
+    --accent-ink: #10142E;
+    --accent-soft: rgba(138, 155, 255, 0.14);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #121715;
+  --surface: #1A201E;
+  --ink: #E4E9E6;
+  --muted: #9AA6A0;
+  --line: #34403B;
+  --accent: #8A9BFF;
+  --accent-ink: #10142E;
+  --accent-soft: rgba(138, 155, 255, 0.14);
+  color-scheme: dark;
+}
+html {
+  background: var(--bg);
+  scroll-padding-top: env(safe-area-inset-top, 0px);
+}
+*, *::before, *::after { box-sizing: inherit; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Schibsted Grotesk", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+img, svg { max-width: 100%; }
+
+a {
+  color: inherit;
+  text-decoration-line: underline;
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 0.22em;
+}
+a:hover { color: var(--accent); }
+a:focus-visible, button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.page {
+  max-width: 70rem;
+  margin: 0 auto;
+  padding: 0 clamp(1.25rem, 5vw, 3rem);
+}
+
+/* Hero */
+.hero {
+  padding: clamp(4rem, 14vh, 9rem) 0 clamp(3.5rem, 9vh, 6rem);
+}
+.name {
+  margin: 0 0 clamp(1.75rem, 4vw, 2.75rem);
+  font-size: clamp(3.4rem, 12.5vw, 9rem);
+  font-weight: 800;
+  line-height: 0.88;
+  letter-spacing: -0.05em;
+}
+.name span { display: block; }
+.name span + span { padding-left: 0.42em; }
+.lede {
+  margin: 0;
+  max-width: 44ch;
+  font-size: clamp(1.15rem, 2.1vw, 1.45rem);
+  line-height: 1.45;
+}
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.75rem;
+  margin-top: 2.25rem;
+}
+.button {
+  display: inline-block;
+  padding: 0.7rem 1.3rem;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-weight: 600;
+  text-decoration: none;
+}
+.button:hover { color: var(--accent-ink); filter: brightness(1.08); }
+.hero-place {
+  margin: 1.5rem 0 0;
+  color: var(--muted);
+  font-size: 0.98rem;
+}
+
+/* Sections */
+.section {
+  padding: clamp(3rem, 8vh, 5.5rem) 0;
+  border-top: 1px solid var(--line);
+}
+.section-title {
+  margin: 0 0 0.6rem;
+  font-size: clamp(1.9rem, 4vw, 2.75rem);
+  font-weight: 750;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+}
+.section-intro {
+  margin: 0 0 clamp(2.5rem, 6vh, 4rem);
+  max-width: 58ch;
+  color: var(--muted);
+}
+
+/* Projects */
+.project + .project { margin-top: clamp(3.5rem, 9vh, 6rem); }
+.project-head h3 {
+  margin: 0;
+  font-size: clamp(1.6rem, 3.2vw, 2.15rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+.project-kind {
+  margin: 0.2rem 0 0;
+  font-size: 1.1rem;
+  color: var(--muted);
+}
+.project-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1.5rem;
+  margin: 0.9rem 0 0;
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+.project-meta a { color: var(--ink); font-weight: 600; }
+.project-meta a:hover { color: var(--accent); }
+.project p.body {
+  max-width: 64ch;
+  margin: 1.25rem 0 0;
+}
+
+.figure {
+  margin: 2rem 0 0;
+  padding: clamp(1rem, 3vw, 1.75rem);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+}
+.figure-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.figure figcaption {
+  margin-top: 1rem;
+  font-size: 0.92rem;
+  color: var(--muted);
+  max-width: 64ch;
+}
+
+/* Diagrams */
+.dg {
+  display: block;
+  width: 100%;
+  min-width: 600px;
+  height: auto;
+  font-family: inherit;
+}
+.dg .box { fill: var(--bg); stroke: var(--muted); stroke-width: 1.25; }
+.dg .t1 { fill: var(--ink); font-size: 13.5px; font-weight: 600; }
+.dg .t2 { fill: var(--muted); font-size: 11.5px; font-weight: 400; }
+.dg .edge { fill: none; stroke: var(--muted); stroke-width: 1.5; }
+.dg .head { fill: var(--muted); }
+.dg .head-on { fill: var(--accent); }
+.dg .bound { fill: none; stroke: var(--accent); stroke-width: 1.25; stroke-dasharray: 5 4; }
+.dg .bound-label { fill: var(--accent); font-size: 12.5px; font-weight: 650; }
+.dg .bracket { fill: none; stroke: var(--accent); stroke-width: 1.25; stroke-dasharray: 5 4; }
+.dg .bracket-label { fill: var(--accent); font-size: 12px; font-weight: 600; }
+
+/* Jarvis trace */
+.dg .route { transition: opacity 0.25s ease; }
+.dg .route .box, .dg .route .edge { transition: stroke 0.25s ease, fill 0.25s ease, stroke-width 0.25s ease; }
+.dg .route.is-off { opacity: 0.18; }
+.dg .route.is-on .edge { stroke: var(--accent); stroke-width: 2.25; marker-end: url(#j-head-on); }
+.dg .route.is-on .box { stroke: var(--accent); stroke-width: 2; fill: var(--accent-soft); }
+
+.trace {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0 0 1.25rem;
+}
+.trace button {
+  font: inherit;
+  font-size: 0.93rem;
+  font-weight: 600;
+  padding: 0.45rem 0.95rem;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+.trace button:hover { border-color: var(--accent); }
+.trace button[aria-pressed="true"] {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-ink);
+}
+.trace-note {
+  margin: 1rem 0 0;
+  min-height: 3.2em;
+  font-size: 0.95rem;
+  color: var(--muted);
+  max-width: 64ch;
+}
+.trace-note q { color: var(--ink); font-weight: 600; }
+
+.project--small .project-head h3 { font-size: clamp(1.3rem, 2.4vw, 1.6rem); }
+
+/* Skills */
+.skills {
+  margin: 0;
+  display: grid;
+  grid-template-columns: minmax(9rem, 13rem) 1fr;
+  max-width: 56rem;
+}
+.skills dt, .skills dd {
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--line);
+}
+.skills dt { font-weight: 650; padding-right: 1.5rem; }
+.skills dd { margin: 0; color: var(--ink); }
+.skills dt:first-of-type, .skills dt:first-of-type + dd { border-top: 1px solid var(--line); }
+
+/* Background */
+.prose .section-title { margin-bottom: 1.5rem; }
+.prose p { max-width: 62ch; margin: 0 0 1.1rem; }
+.prose p:last-child { margin-bottom: 0; }
+
+/* Contact */
+.contact { padding-bottom: clamp(4rem, 12vh, 8rem); }
+.contact-email {
+  display: inline-block;
+  margin: 0.5rem 0 1.5rem;
+  font-size: clamp(1.35rem, 4.6vw, 3rem);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+  word-break: break-word;
+}
+.contact-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.contact .section-title { margin-bottom: 1rem; }
+.contact-place { color: var(--muted); margin: 0 0 0.25rem; }
+
+@media (max-width: 640px) {
+  .skills { grid-template-columns: 1fr; }
+  .skills dt { padding-bottom: 0.15rem; border-bottom: none; }
+  .skills dd { padding-top: 0; }
+  .skills dt:first-of-type + dd { border-top: none; }
+  .name span + span { padding-left: 0.25em; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; }
+}
+</style>
+</head>
+<body>
+<main class="page">
+
+  <header class="hero">
+    <h1 class="name"><span>Shubham</span><span>Belwal</span></h1>
+    <p class="lede">Backend developer. Java and Spring Boot, Python and Flask, with hands-on work in concurrency, sockets, applied cryptography and LLM-based systems. Self-taught, and I ship in public.</p>
+    <div class="hero-actions">
+      <a class="button" href="mailto:shubhambelwal337@gmail.com">Email me</a>
+      <a href="https://github.com/Happy030303" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://www.linkedin.com/in/h-h-53b7731a5" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+    <p class="hero-place">Dehradun, Uttarakhand. Relocating to Bangalore.</p>
+  </header>
+
+  <section class="section" id="projects" aria-labelledby="projects-title">
+    <h2 class="section-title" id="projects-title">Projects</h2>
+    <p class="section-intro">Each diagram shows how a request actually moves through the system.</p>
+
+    <!-- Jarvis -->
+    <article class="project">
+      <div class="project-head">
+        <h3>Jarvis</h3>
+        <p class="project-kind">Modular voice AI assistant</p>
+        <p class="project-meta">
+          <span>Python, Flask, Cohere, Groq (Llama 3.1), DuckDuckGo Search, SpeechRecognition, pyttsx3</span>
+          <a href="https://github.com/Happy030303/jarvis" target="_blank" rel="noopener">Source on GitHub</a>
+        </p>
+      </div>
+      <p class="body">A desktop voice assistant built around a semantic router. A Cohere model classifies each transcribed request as a general question, a real-time question or a system command, and each type follows its own execution path instead of going through one monolithic prompt.</p>
+
+      <figure class="figure" id="jarvis-figure">
+        <div class="trace" role="group" aria-label="Trace a request type">
+          <button type="button" data-route="general" aria-pressed="false">General question</button>
+          <button type="button" data-route="realtime" aria-pressed="false">Real-time question</button>
+          <button type="button" data-route="command" aria-pressed="false">System command</button>
+        </div>
+        <div class="figure-scroll">
+          <svg class="dg" viewBox="0 0 720 250" role="img" aria-labelledby="j-title j-desc">
+            <title id="j-title">Jarvis request routing</title>
+            <desc id="j-desc">Speech is transcribed and sent to a Cohere router. General questions are answered by the language model directly. Real-time questions go to a second router that picks Wikipedia or DuckDuckGo, and the fetched data is passed to Llama 3.1 on Groq. System commands are checked against an allowlist and run as OS actions without the language model.</desc>
+            <defs>
+              <marker id="j-head" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto"><path class="head" d="M0 0L10 5L0 10z"/></marker>
+              <marker id="j-head-on" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto"><path class="head-on" d="M0 0L10 5L0 10z"/></marker>
+            </defs>
+
+            <g class="route" data-route="general realtime command">
+              <rect class="box" x="2" y="102" width="112" height="46" rx="10"/>
+              <text class="t1" x="16" y="122">Your voice</text>
+              <text class="t2" x="16" y="138">speech to text</text>
+              <path class="edge" d="M114 125H146" marker-end="url(#j-head)"/>
+              <rect class="box" x="146" y="102" width="134" height="46" rx="10"/>
+              <text class="t1" x="160" y="122">Cohere router</text>
+              <text class="t2" x="160" y="138">classifies intent</text>
+            </g>
+
+            <g class="route" data-route="general">
+              <path class="edge" d="M280 125C305 125 305 40 330 40" marker-end="url(#j-head)"/>
+              <rect class="box" x="330" y="17" width="170" height="46" rx="10"/>
+              <text class="t1" x="344" y="37">Direct answer</text>
+              <text class="t2" x="344" y="53">LLM, no lookup needed</text>
+            </g>
+
+            <g class="route" data-route="realtime">
+              <path class="edge" d="M280 125H330" marker-end="url(#j-head)"/>
+              <rect class="box" x="330" y="102" width="170" height="46" rx="10"/>
+              <text class="t1" x="344" y="122">Second router</text>
+              <text class="t2" x="344" y="138">Wikipedia or DuckDuckGo</text>
+              <path class="edge" d="M500 125H540" marker-end="url(#j-head)"/>
+              <rect class="box" x="540" y="102" width="176" height="46" rx="10"/>
+              <text class="t1" x="554" y="122">Llama 3.1 on Groq</text>
+              <text class="t2" x="554" y="138">uses fetched data</text>
+            </g>
+
+            <g class="route" data-route="command">
+              <path class="edge" d="M280 125C305 125 305 210 330 210" marker-end="url(#j-head)"/>
+              <rect class="box" x="330" y="187" width="170" height="46" rx="10"/>
+              <text class="t1" x="344" y="207">Allowlist check</text>
+              <text class="t2" x="344" y="223">permitted OS actions</text>
+              <path class="edge" d="M500 210H540" marker-end="url(#j-head)"/>
+              <rect class="box" x="540" y="187" width="176" height="46" rx="10"/>
+              <text class="t1" x="554" y="207">OS action runs</text>
+              <text class="t2" x="554" y="223">no LLM in this path</text>
+            </g>
+          </svg>
+        </div>
+        <p class="trace-note" aria-live="polite">Choose a request type to trace the path it takes through the router.</p>
+      </figure>
+
+      <p class="body">Real-time questions pass through a second router that chooses between the Wikipedia API and DuckDuckGo search, and the retrieved context is injected into Llama 3.1 on Groq, so answers rest on fetched data rather than model memory. System commands skip the LLM entirely and resolve against an explicit allowlist of OS actions, so a model response can never execute an arbitrary command on the host.</p>
+      <p class="body">Text-to-speech runs in a separate subprocess that can be killed the moment a new request starts, so playback never blocks the next question. A Flask backend with CORS serves the browser frontend.</p>
+    </article>
+
+    <!-- TerminalChat -->
+    <article class="project">
+      <div class="project-head">
+        <h3>TerminalChat</h3>
+        <p class="project-kind">Encrypted terminal chat system</p>
+        <p class="project-meta">
+          <span>Java, TCP sockets, multithreading, JDBC, MySQL, RSA/AES</span>
+          <a href="https://github.com/Happy030303/terminalchat" target="_blank" rel="noopener">Source on GitHub</a>
+        </p>
+      </div>
+      <p class="body">A chat server written directly on Java sockets with a thread-per-client model. Every connection gets its own handler thread and registers in a shared map, which lets the server route a message to one specific recipient instead of broadcasting it to everyone.</p>
+
+      <figure class="figure">
+        <div class="figure-scroll">
+          <svg class="dg" viewBox="0 0 780 206" role="img" aria-labelledby="t-title t-desc">
+            <title id="t-title">TerminalChat message routing</title>
+            <desc id="t-desc">Client A's handler thread looks up client C in a shared client map and hands the message to client C's handler thread, which delivers it. Login is checked against MySQL with prepared statements. Messages between clients use hybrid encryption: RSA for direct messages and an AES key per group room.</desc>
+            <defs>
+              <marker id="t-head" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto"><path class="head" d="M0 0L10 5L0 10z"/></marker>
+            </defs>
+
+            <text class="bracket-label" x="390" y="18" text-anchor="middle">Hybrid encryption between clients: RSA for direct messages, AES per group room</text>
+            <path class="bracket" d="M51 50V28H728V50"/>
+
+            <rect class="box" x="1" y="50" width="100" height="46" rx="10"/>
+            <text class="t1" x="15" y="70">Client A</text>
+            <text class="t2" x="15" y="86">terminal</text>
+            <path class="edge" d="M101 73H127" marker-end="url(#t-head)"/>
+
+            <rect class="box" x="127" y="50" width="150" height="46" rx="10"/>
+            <text class="t1" x="141" y="70">Handler thread</text>
+            <text class="t2" x="141" y="86">one per client</text>
+            <path class="edge" d="M277 73H303" marker-end="url(#t-head)"/>
+
+            <rect class="box" x="303" y="50" width="172" height="46" rx="10"/>
+            <text class="t1" x="317" y="70">Shared client map</text>
+            <text class="t2" x="317" y="86">finds recipient C</text>
+            <path class="edge" d="M475 73H501" marker-end="url(#t-head)"/>
+
+            <rect class="box" x="501" y="50" width="150" height="46" rx="10"/>
+            <text class="t1" x="515" y="70">Handler thread</text>
+            <text class="t2" x="515" y="86">for client C</text>
+            <path class="edge" d="M651 73H677" marker-end="url(#t-head)"/>
+
+            <rect class="box" x="677" y="50" width="102" height="46" rx="10"/>
+            <text class="t1" x="691" y="70">Client C</text>
+            <text class="t2" x="691" y="86">recipient</text>
+
+            <path class="edge" d="M202 96V150" marker-end="url(#t-head)"/>
+            <rect class="box" x="111" y="150" width="182" height="46" rx="10"/>
+            <text class="t1" x="125" y="170">MySQL login</text>
+            <text class="t2" x="125" y="186">prepared statements</text>
+          </svg>
+        </div>
+        <figcaption>How a direct message from client A reaches client C.</figcaption>
+      </figure>
+
+      <p class="body">The server runs in two modes, one-to-one messaging and group rooms, on top of a MySQL-backed login where all database access goes through parameterised prepared statements. It is designed for hybrid encryption: RSA public keys exchanged between clients for direct messages, and an AES key per group room. I wrote the specification, the data model and a dated engineering log before writing any code.</p>
+    </article>
+
+    <!-- Event Booking -->
+    <article class="project">
+      <div class="project-head">
+        <h3>Event Booking System</h3>
+        <p class="project-kind">REST API for ticketing</p>
+        <p class="project-meta">
+          <span>Java 21, Spring Boot 3, Spring Security, Spring Data JPA, MySQL, Maven</span>
+          <a href="https://github.com/Happy030303/EventBooking-System-using-RestAPI" target="_blank" rel="noopener">Source on GitHub</a>
+        </p>
+      </div>
+      <p class="body">A ticketing backend with the API split into separate public and admin controllers, so administrative operations sit behind their own authorization boundary.</p>
+
+      <figure class="figure">
+        <div class="figure-scroll">
+          <svg class="dg" viewBox="0 0 720 236" role="img" aria-labelledby="e-title e-desc">
+            <title id="e-title">Event Booking System request flow</title>
+            <desc id="e-desc">Public and admin controllers both call the service layer. The admin controller sits inside a Spring Security authorization boundary. The service layer uses JPA repositories backed by MySQL and sends confirmation email through Spring Mail.</desc>
+            <defs>
+              <marker id="e-head" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto"><path class="head" d="M0 0L10 5L0 10z"/></marker>
+            </defs>
+
+            <rect class="box" x="15" y="24" width="152" height="46" rx="10"/>
+            <text class="t1" x="29" y="44">Public controller</text>
+            <text class="t2" x="29" y="60">open endpoints</text>
+
+            <rect class="bound" x="1" y="104" width="180" height="128" rx="14"/>
+            <text class="bound-label" x="15" y="126">Admin authorization</text>
+            <text class="t2" x="15" y="143">Spring Security</text>
+            <rect class="box" x="15" y="164" width="152" height="46" rx="10"/>
+            <text class="t1" x="29" y="184">Admin controller</text>
+            <text class="t2" x="29" y="200">admin-only operations</text>
+
+            <path class="edge" d="M167 47C200 47 200 115 232 115" marker-end="url(#e-head)"/>
+            <path class="edge" d="M167 187C200 187 200 115 232 115" marker-end="url(#e-head)"/>
+
+            <rect class="box" x="232" y="92" width="140" height="46" rx="10"/>
+            <text class="t1" x="246" y="112">Service layer</text>
+            <text class="t2" x="246" y="128">business logic</text>
+            <path class="edge" d="M372 115H410" marker-end="url(#e-head)"/>
+
+            <rect class="box" x="410" y="92" width="148" height="46" rx="10"/>
+            <text class="t1" x="424" y="112">JPA repositories</text>
+            <text class="t2" x="424" y="128">one per domain</text>
+            <path class="edge" d="M558 115H588" marker-end="url(#e-head)"/>
+
+            <rect class="box" x="588" y="92" width="131" height="46" rx="10"/>
+            <text class="t1" x="602" y="112">MySQL</text>
+            <text class="t2" x="602" y="128">relational schema</text>
+
+            <path class="edge" d="M302 138V176" marker-end="url(#e-head)"/>
+            <rect class="box" x="232" y="176" width="140" height="46" rx="10"/>
+            <text class="t1" x="246" y="196">Spring Mail</text>
+            <text class="t2" x="246" y="212">confirmation email</text>
+          </svg>
+        </div>
+        <figcaption>How a request travels from a controller to the database.</figcaption>
+      </figure>
+
+      <p class="body">Authentication runs through Spring Security with a custom UserDetailsService that maps database records onto security principals. The domain is modelled across users, events, tickets and payments, each with its own repository and service layer, and confirmation emails go out through Spring Mail.</p>
+    </article>
+
+    <!-- Healthcare -->
+    <article class="project project--small">
+      <div class="project-head">
+        <h3>Healthcare Management System</h3>
+        <p class="project-kind">REST API</p>
+        <p class="project-meta">
+          <span>Java, Spring Boot</span>
+          <span>Private repository, available on request</span>
+        </p>
+      </div>
+    </article>
+  </section>
+
+  <section class="section" id="skills" aria-labelledby="skills-title">
+    <h2 class="section-title" id="skills-title">Skills</h2>
+    <p class="section-intro">What I've used in the projects above.</p>
+    <dl class="skills">
+      <dt>Languages</dt>
+      <dd>Java, Python, SQL</dd>
+      <dt>Backend</dt>
+      <dd>Spring Boot, Spring Security, Spring Data JPA / Hibernate, Flask, REST API design, Maven</dd>
+      <dt>Systems</dt>
+      <dd>Java multithreading, TCP socket programming, client-server architecture</dd>
+      <dt>Databases</dt>
+      <dd>MySQL: schema design, JDBC, prepared statements, relational modelling</dd>
+      <dt>AI integration</dt>
+      <dd>Cohere and Groq APIs, intent classification, retrieval-grounded responses, speech-to-text and text-to-speech pipelines</dd>
+      <dt>Tools</dt>
+      <dd>Git, Linux, VS Code</dd>
+    </dl>
+  </section>
+
+  <section class="section prose" id="background" aria-labelledby="background-title">
+    <h2 class="section-title" id="background-title">Background</h2>
+    <p>I studied for a B.Tech in Computer Science and Engineering and left in the third year to build independently, full-time. I'm self-taught, and I build in public.</p>
+    <p>Outside code, I read psychology, mainly decision-making and behaviour. It helps when I'm reasoning about how people actually use a product.</p>
+  </section>
+
+  <section class="section contact" id="contact" aria-labelledby="contact-title">
+    <h2 class="section-title" id="contact-title">Get in touch</h2>
+    <p class="contact-place">Based in Dehradun, relocating to Bangalore.</p>
+    <a class="contact-email" href="mailto:shubhambelwal337@gmail.com">shubhambelwal337@gmail.com</a>
+    <ul class="contact-links">
+      <li><a href="https://github.com/Happy030303" target="_blank" rel="noopener">GitHub</a></li>
+      <li><a href="https://www.linkedin.com/in/h-h-53b7731a5" target="_blank" rel="noopener">LinkedIn</a></li>
+    </ul>
+  </section>
+
+</main>
+
+<script>
+(function () {
+  var fig = document.getElementById('jarvis-figure');
+  if (!fig) return;
+  var notes = {
+    general: ['Explain how a TCP handshake works.', 'Classified as general, so it goes straight to the language model with no lookup.'],
+    realtime: ['What\u2019s the weather in Dehradun today?', 'It needs fresh data, so the second router picks Wikipedia or DuckDuckGo and the results are passed to Llama 3.1 on Groq.'],
+    command: ['Turn the volume up.', 'A system command. It is matched against the allowlist and never reaches the model, so no generated text can run on the machine.']
+  };
+  var idle = 'Choose a request type to trace the path it takes through the router.';
+  var buttons = fig.querySelectorAll('button[data-route]');
+  var routes = fig.querySelectorAll('.route');
+  var note = fig.querySelector('.trace-note');
+  var active = null;
+
+  function render() {
+    Array.prototype.forEach.call(buttons, function (b) {
+      b.setAttribute('aria-pressed', String(b.getAttribute('data-route') === active));
+    });
+    Array.prototype.forEach.call(routes, function (r) {
+      var list = (r.getAttribute('data-route') || '').split(' ');
+      var on = !!active && list.indexOf(active) > -1;
+      r.classList.toggle('is-on', on);
+      r.classList.toggle('is-off', !!active && !on);
+    });
+    note.textContent = '';
+    if (active) {
+      var q = document.createElement('q');
+      q.textContent = notes[active][0];
+      note.appendChild(document.createTextNode('Example: '));
+      note.appendChild(q);
+      note.appendChild(document.createTextNode(' ' + notes[active][1]));
+    } else {
+      note.textContent = idle;
+    }
+  }
+
+  Array.prototype.forEach.call(buttons, function (b) {
+    b.addEventListener('click', function () {
+      var r = b.getAttribute('data-route');
+      active = active === r ? null : r;
+      render();
+    });
+  });
+})();
+</script>
+</body>
+</html>
