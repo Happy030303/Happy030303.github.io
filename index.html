@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Shubham Belwal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;1,9..144,300;1,9..144,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #fbe9f2; --bg2: #e9dcfb;
+    --ink: #2b1a4b; --ink-soft: #66588a;
+    --rose: #d45d8b; --lilac: #8a6fd3;
+    --line: rgba(138,111,211,.3); --glass: rgba(255,255,255,.55);
+    --p1: #d45d8b; --p2: #8a6fd3; --p3: #e8925f;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0d0720; --bg2: #24123f;
+      --ink: #fbefff; --ink-soft: #c5b5e6;
+      --rose: #f6a8c8; --lilac: #bfa9ff;
+      --line: rgba(191,169,255,.2); --glass: rgba(22,12,44,.55);
+      --p1: #f6a8c8; --p2: #bfa9ff; --p3: #ffd0b5;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0d0720; --bg2: #24123f;
+    --ink: #fbefff; --ink-soft: #c5b5e6;
+    --rose: #f6a8c8; --lilac: #bfa9ff;
+    --line: rgba(191,169,255,.2); --glass: rgba(22,12,44,.55);
+    --p1: #f6a8c8; --p2: #bfa9ff; --p3: #ffd0b5;
+  }
+  *,*::before,*::after { box-sizing: inherit; margin: 0; padding: 0; }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); scroll-behavior: smooth; }
+  body {
+    background: radial-gradient(ellipse at 70% 20%, var(--bg2), var(--bg) 65%) fixed;
+    background-color: var(--bg);
+    color: var(--ink);
+    font-family: "Outfit", "Segoe UI", system-ui, sans-serif;
+    font-weight: 300; font-size: 1.05rem; line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  #scene { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; display: block; }
+  main { position: relative; z-index: 1; }
+
+  /* Hero */
+  .hero {
+    min-height: 100vh; min-height: 100svh;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 2rem clamp(1.25rem, 5vw, 4rem) 4.5rem;
+    pointer-events: none;
+  }
+  .hero > * { pointer-events: auto; }
+  .hello { color: var(--ink-soft); font-size: 1.1rem; margin-bottom: .5rem; }
+  h1 {
+    font-family: "Fraunces", Georgia, serif; font-weight: 300;
+    font-size: clamp(3.4rem, 13vw, 9.5rem);
+    line-height: .9; letter-spacing: -0.03em;
+    font-variation-settings: "opsz" 144;
+  }
+  h1 .w { display: inline-block; overflow: hidden; vertical-align: bottom; }
+  h1 .w > span { display: inline-block; }
+  h1 .w:last-child { font-style: italic; color: var(--lilac); }
+  .hero-foot {
+    margin-top: 2rem;
+    display: flex; flex-wrap: wrap; gap: 1.5rem 3rem; align-items: end; justify-content: space-between;
+  }
+  .intro { max-width: 26rem; color: var(--ink-soft); font-size: 1.15rem; }
+  .links { display: flex; flex-wrap: wrap; gap: .6rem; }
+  .links a, .btn {
+    color: var(--ink); text-decoration: none;
+    border: 1px solid var(--line); background: var(--glass);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    padding: .55rem 1.15rem; border-radius: 999px; font-size: .95rem;
+    transition: border-color .2s, color .2s, transform .2s;
+  }
+  .links a:hover, .btn:hover { border-color: var(--rose); color: var(--rose); transform: translateY(-2px); }
+  a:focus-visible { outline: 2px solid var(--rose); outline-offset: 3px; }
+  .scroll-hint { margin-top: 2.5rem; font-size: .9rem; color: var(--ink-soft); }
+
+  /* Sections */
+  .wrap { max-width: 62rem; margin: 0 auto; padding: 0 clamp(1.25rem, 5vw, 3rem); }
+  section { padding: 6rem 0 2rem; }
+  h2 {
+    font-family: "Fraunces", Georgia, serif; font-weight: 300;
+    font-size: clamp(2.2rem, 6vw, 3.6rem); line-height: 1.05;
+    margin-bottom: 2rem;
+  }
+  h2 em { color: var(--rose); }
+  .panel {
+    background: var(--glass); border: 1px solid var(--line);
+    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    border-radius: 1.75rem;
+    padding: clamp(1.5rem, 4vw, 2.75rem);
+  }
+  .message p { font-family: "Fraunces", Georgia, serif; font-size: clamp(1.25rem, 2.6vw, 1.6rem); line-height: 1.5; font-weight: 300; max-width: 48rem; }
+
+  /* Projects */
+  .projects { display: grid; gap: 1.5rem; }
+  .project { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr); gap: 2rem; align-items: start; }
+  .project h3 { font-family: "Fraunces", Georgia, serif; font-weight: 500; font-size: clamp(1.6rem, 3.5vw, 2.2rem); line-height: 1.15; }
+  .project .kind { color: var(--rose); font-style: italic; font-family: "Fraunces", Georgia, serif; font-size: 1.1rem; margin-top: .25rem; }
+  .tags { display: flex; flex-wrap: wrap; gap: .4rem; margin: 1rem 0 1.25rem; list-style: none; }
+  .tags li { font-size: .82rem; padding: .2rem .65rem; border-radius: 999px; border: 1px solid var(--line); color: var(--ink-soft); }
+  .project ul.points { list-style: none; display: grid; gap: .75rem; }
+  .project ul.points li { padding-left: 1.4rem; position: relative; }
+  .project ul.points li::before {
+    content: ""; position: absolute; left: 0; top: .62em;
+    width: .5rem; height: .5rem; border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #fff, var(--lilac) 75%);
+    box-shadow: 0 0 8px var(--lilac);
+  }
+  @media (max-width: 46rem) { .project { grid-template-columns: 1fr; gap: .5rem; } }
+
+  /* Skills */
+  .skillset { display: grid; grid-template-columns: 8rem 1fr; gap: 1.1rem 1.5rem; }
+  .skillset dt { font-family: "Fraunces", Georgia, serif; font-style: italic; color: var(--lilac); font-size: 1.15rem; }
+  .skillset dd ul { list-style: none; display: flex; flex-wrap: wrap; gap: .45rem; }
+  .skillset dd li { padding: .25rem .8rem; border-radius: 999px; border: 1px solid var(--line); font-size: .93rem; }
+  @media (max-width: 34rem) { .skillset { grid-template-columns: 1fr; gap: .35rem; } .skillset dd { margin-bottom: .9rem; } }
+
+  .edu h3 { font-family: "Fraunces", Georgia, serif; font-weight: 500; font-size: 1.4rem; }
+  .edu p { color: var(--ink-soft); margin-top: .3rem; }
+
+  footer { padding: 7rem 0 4rem; text-align: center; }
+  footer h2 { margin-bottom: 1.5rem; }
+  footer .links { justify-content: center; }
+  .small { margin-top: 3rem; font-size: .85rem; color: var(--ink-soft); }
+
+  .reveal { opacity: 1; }
+  @media (prefers-reduced-motion: no-preference) {
+    .js .reveal { opacity: 0; transform: translateY(40px); transition: opacity 1s ease, transform 1s cubic-bezier(.2,.7,.2,1); }
+    .js .reveal.in { opacity: 1; transform: none; }
+    .js h1 .w > span { transform: translateY(105%); transition: transform 1.2s cubic-bezier(.2,.8,.2,1); }
+    .js.loaded h1 .w > span { transform: none; }
+    .js.loaded h1 .w:last-child > span { transition-delay: .15s; }
+    .js .hello, .js .hero-foot, .js .scroll-hint { opacity: 0; transition: opacity 1s ease .6s; }
+    .js.loaded .hello, .js.loaded .hero-foot, .js.loaded .scroll-hint { opacity: 1; }
+  }
+</style>
+</head>
+<body>
+<canvas id="scene" aria-hidden="true"></canvas>
+
+<main>
+  <header class="hero">
+    <p class="hello">Hi, I'm</p>
+    <h1><span class="w"><span>Shubham</span></span><br><span class="w"><span>Belwal</span></span></h1>
+    <div class="hero-foot">
+      <p class="intro">Backend developer from Dehradun, Uttarakhand. I build projects end to end and put them on GitHub.</p>
+      <nav class="links" aria-label="Contact links">
+        <a href="https://github.com/Happy030303" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://www.linkedin.com/in/shubham-belwal-53b7731a5/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="mailto:shubhambelwal337@gmail.com">Email</a>
+      </nav>
+    </div>
+    <p class="scroll-hint">Scroll to explore</p>
+  </header>
+
+  <div class="wrap">
+    <section class="message">
+      <h2 class="reveal">Why I'm <em>here</em></h2>
+      <div class="panel reveal">
+        <p>I'm looking to work with an early-stage startup, not just for a job, but to understand how a startup is built and grown from the inside. I'm happy to work beyond code wherever the team needs help. I don't believe a long list of technologies says much about a person. What matters is what you can build. When a project needs a stack I don't know yet, I learn it fast and get it working, using AI to speed things up.</p>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="reveal">Things I've <em>built</em></h2>
+      <div class="projects">
+        <article class="panel project reveal">
+          <div>
+            <h3>TerminalChat</h3>
+            <p class="kind">Encrypted chat app</p>
+            <ul class="tags"><li>Java</li><li>Sockets</li><li>Multithreading</li><li>MySQL</li><li>JDBC</li></ul>
+            <a class="btn" href="https://github.com/Happy030303/terminalchat" target="_blank" rel="noopener">View on GitHub</a>
+          </div>
+          <ul class="points">
+            <li>A chat system that lives entirely in the terminal, like the chats in the Mr. Robot series. Built on Java sockets, where each user runs on a separate thread so many people can chat at the same time.</li>
+            <li>Messages go directly to the intended person, like Telegram, but for the terminal.</li>
+            <li>Supports one-to-one chat and group rooms, with user login stored in MySQL and protected against SQL injection.</li>
+            <li>Designed the encryption: RSA for private chats and AES for group rooms. Wrote the full plan and data design before coding.</li>
+            <li>Works on a local network today, with internet support coming next.</li>
+          </ul>
+        </article>
+
+        <article class="panel project reveal">
+          <div>
+            <h3>Jarvis</h3>
+            <p class="kind">Voice AI assistant</p>
+            <ul class="tags"><li>Python</li><li>Cohere</li><li>Groq (Llama 3.1)</li><li>DuckDuckGo Search</li></ul>
+            <a class="btn" href="https://github.com/Happy030303/jarvis" target="_blank" rel="noopener">View on GitHub</a>
+          </div>
+          <ul class="points">
+            <li>Understands what kind of request the user is making (a general question, a live-information question, or a computer command) and handles each one differently.</li>
+            <li>For live questions, it fetches current data from Wikipedia or DuckDuckGo and passes it to the AI, so answers are based on real information.</li>
+            <li>Computer commands run only from a fixed list of allowed actions, so the AI cannot run anything unsafe.</li>
+            <li>Voice output stops instantly when the user asks something new.</li>
+          </ul>
+        </article>
+
+        <article class="panel project reveal">
+          <div>
+            <h3>Event Booking System</h3>
+            <p class="kind">REST API</p>
+            <ul class="tags"><li>Java 21</li><li>Spring Boot 3</li><li>Spring Security</li><li>Spring Data JPA</li><li>MySQL</li></ul>
+            <a class="btn" href="https://github.com/Happy030303/Event-Booking-System-using-RestAPI" target="_blank" rel="noopener">View on GitHub</a>
+          </div>
+          <ul class="points">
+            <li>Backend for booking event tickets, covering users, events, tickets and payments.</li>
+            <li>Separate access for regular users and admins, with secure login built on Spring Security.</li>
+            <li>Sends a confirmation email to the user after a successful booking.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="reveal">Technical <em>skills</em></h2>
+      <div class="panel reveal">
+        <dl class="skillset">
+          <dt>Languages</dt><dd><ul><li>Java</li><li>Python</li><li>SQL</li></ul></dd>
+          <dt>Backend</dt><dd><ul><li>Spring Boot</li><li>Spring Security</li><li>Spring Data JPA</li><li>Hibernate</li><li>Spring Mail</li><li>REST APIs</li><li>Maven</li></ul></dd>
+          <dt>Core Java</dt><dd><ul><li>Multithreading</li><li>Socket Programming</li></ul></dd>
+          <dt>Database</dt><dd><ul><li>MySQL</li><li>JDBC</li></ul></dd>
+          <dt>AI</dt><dd><ul><li>Cohere API</li><li>Groq API</li><li>Speech-to-Text</li><li>Text-to-Speech</li></ul></dd>
+          <dt>Security</dt><dd><ul><li>RSA</li><li>AES</li><li>Secure Login</li><li>SQL Injection Prevention</li></ul></dd>
+          <dt>Tools</dt><dd><ul><li>Git</li><li>Linux</li><li>VS Code</li></ul></dd>
+        </dl>
+      </div>
+    </section>
+
+    <section class="edu">
+      <h2 class="reveal"><em>Education</em></h2>
+      <div class="panel reveal">
+        <h3>B.Tech, Computer Science &amp; Engineering</h3>
+        <p>Graphic Era Deemed to be University, Dehradun</p>
+        <p>Dropped out in third year</p>
+      </div>
+    </section>
+
+    <footer>
+      <h2 class="reveal">Let's <em>build</em> something</h2>
+      <nav class="links reveal" aria-label="Contact">
+        <a href="mailto:shubhambelwal337@gmail.com">shubhambelwal337@gmail.com</a>
+        <a href="tel:+918630980132">+91 86309 80132</a>
+      </nav>
+      <p class="small">Shubham Belwal, Dehradun</p>
+    </footer>
+  </div>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function () {
+  const root = document.documentElement;
+  root.classList.add('js');
+  requestAnimationFrame(() => setTimeout(() => root.classList.add('loaded'), 80));
+
+  // Scroll reveal
+  const io = 'IntersectionObserver' in window ? new IntersectionObserver((es) => {
+    es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.15 }) : null;
+  document.querySelectorAll('.reveal').forEach(el => io ? io.observe(el) : el.classList.add('in'));
+
+  if (typeof THREE === 'undefined') return;
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const canvas = document.getElementById('scene');
+  let renderer;
+  try { renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true }); } catch (e) { return; }
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(55, 1, 0.1, 100);
+  camera.position.set(0, 2.2, 7);
+
+  const css = (v) => getComputedStyle(root).getPropertyValue(v).trim();
+  const mobile = window.innerWidth < 700;
+
+  // Spiral galaxy
+  const COUNT = mobile ? 9000 : 18000, ARMS = 3, RADIUS = 5;
+  const pos = new Float32Array(COUNT * 3), col = new Float32Array(COUNT * 3);
+  const gGeo = new THREE.BufferGeometry();
+  gGeo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+  gGeo.setAttribute('color', new THREE.BufferAttribute(col, 3));
+  for (let i = 0; i < COUNT; i++) {
+    const r = Math.pow(Math.random(), 1.6) * RADIUS;
+    const branch = (i % ARMS) / ARMS * Math.PI * 2;
+    const spin = r * 1.1;
+    const rnd = () => Math.pow(Math.random(), 3) * (Math.random() < .5 ? 1 : -1) * 0.45 * (r + .3);
+    pos[i*3] = Math.cos(branch + spin) * r + rnd();
+    pos[i*3+1] = rnd() * 0.45;
+    pos[i*3+2] = Math.sin(branch + spin) * r + rnd();
+  }
+  function paint() {
+    const inner = new THREE.Color(css('--p3')), mid = new THREE.Color(css('--p1')), outer = new THREE.Color(css('--p2'));
+    const c = new THREE.Color();
+    for (let i = 0; i < COUNT; i++) {
+      const r = Math.hypot(pos[i*3], pos[i*3+2]) / RADIUS;
+      if (r < .35) c.copy(inner).lerp(mid, r / .35); else c.copy(mid).lerp(outer, Math.min(1, (r - .35) / .65));
+      col[i*3] = c.r; col[i*3+1] = c.g; col[i*3+2] = c.b;
+    }
+    gGeo.attributes.color.needsUpdate = true;
+    const dark = new THREE.Color(css('--bg')).getHSL({}).l < .5;
+    gMat.blending = dark ? THREE.AdditiveBlending : THREE.NormalBlending;
+    gMat.opacity = dark ? .9 : .75;
+    starMat.color.set(css('--p2'));
+    gMat.needsUpdate = true;
+  }
+  const gMat = new THREE.PointsMaterial({ size: mobile ? .035 : .028, vertexColors: true, transparent: true, depthWrite: false, sizeAttenuation: true });
+  const galaxy = new THREE.Points(gGeo, gMat);
+  galaxy.rotation.x = 0.35;
+  scene.add(galaxy);
+
+  // Far stars
+  const SC = 1500, sPos = new Float32Array(SC * 3);
+  for (let i = 0; i < SC; i++) {
+    const t = Math.random() * Math.PI * 2, p = Math.acos(2 * Math.random() - 1), d = 18 + Math.random() * 20;
+    sPos[i*3] = d * Math.sin(p) * Math.cos(t); sPos[i*3+1] = d * Math.cos(p); sPos[i*3+2] = d * Math.sin(p) * Math.sin(t);
+  }
+  const sGeo = new THREE.BufferGeometry(); sGeo.setAttribute('position', new THREE.BufferAttribute(sPos, 3));
+  const starMat = new THREE.PointsMaterial({ size: .09, transparent: true, opacity: .7, depthWrite: false });
+  const stars = new THREE.Points(sGeo, starMat);
+  scene.add(stars);
+
+  paint();
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener?.('change', () => { paint(); render(); });
+
+  function resize() {
+    const w = window.innerWidth, h = window.innerHeight;
+    renderer.setSize(w, h, false);
+    camera.aspect = w / h;
+    camera.position.z = w < 700 ? 9.5 : 7;
+    camera.updateProjectionMatrix();
+    galaxy.position.x = w < 700 ? 0 : 1.8;
+  }
+  window.addEventListener('resize', () => { resize(); if (reduce) render(); });
+  resize();
+
+  let mx = 0, my = 0, tx = 0, ty = 0, scrollP = 0;
+  window.addEventListener('pointermove', (e) => { tx = (e.clientX / innerWidth - .5); ty = (e.clientY / innerHeight - .5); });
+  window.addEventListener('scroll', () => { scrollP = scrollY / Math.max(1, document.body.scrollHeight - innerHeight); }, { passive: true });
+
+  function render() { renderer.render(scene, camera); }
+  if (reduce) { render(); return; }
+
+  const clock = new THREE.Clock();
+  (function tick() {
+    const t = clock.getElapsedTime();
+    mx += (tx - mx) * .05; my += (ty - my) * .05;
+    galaxy.rotation.y = t * .05 + scrollP * Math.PI * 1.5;
+    galaxy.rotation.x = .35 + scrollP * .6 + my * .25;
+    galaxy.rotation.z = mx * .2;
+    stars.rotation.y = t * .005 + mx * .1;
+    camera.position.y = 2.2 - scrollP * 1.8;
+    camera.lookAt(galaxy.position.x * .5, 0, 0);
+    render();
+    requestAnimationFrame(tick);
+  })();
+})();
+</script>
+</body>
+</html>
